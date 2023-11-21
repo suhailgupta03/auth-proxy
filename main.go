@@ -28,14 +28,18 @@ var (
 func main() {
 	e := echo.New()
 
-	// Initialize token storage
-	tokenStorage := tokenstorage.New()
-
 	oauthProxy := oauth.NewOAuthProxy()
 	oauth.RegisterService(oauthProxy, "slack")
+	oauth.RegisterService(oauthProxy, "jira")
+	oauth.RegisterService(oauthProxy, "microsoft")
 
-	// Register OAuth callback handler
+	// Initialize token storage
+	tokenStorage := tokenstorage.New()
+	// Responsible for handling OAuth callbacks.
+	// One handler callback for all services.
 	oauth.RegisterHandlers(e, tokenStorage, oauthProxy)
+
+	// Responsible for forwarding the requests to the upstream (jira / slack / teams) service.
 	oauth.RegisterAPIProxyHandler(e, oauthProxy)
 
 	// Start server

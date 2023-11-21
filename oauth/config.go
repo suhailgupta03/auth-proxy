@@ -1,7 +1,6 @@
 package oauth
 
 import (
-	"fmt"
 	"golang.org/x/oauth2"
 )
 
@@ -23,7 +22,8 @@ var Configs = map[string]*oauth2.Config{
 func RegisterService(proxy *OAuthProxy, serviceName string) error {
 	config, exists := Configs[serviceName]
 	if !exists {
-		return fmt.Errorf("OAuth configuration for service %s does not exist", serviceName)
+		return nil
+		//return fmt.Errorf("OAuth configuration for service %s does not exist", serviceName)
 	}
 	proxy.RegisterService(serviceName, &ServiceConfig{
 		ClientID:     config.ClientID,
