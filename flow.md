@@ -5,7 +5,7 @@ sequenceDiagram
     participant OCH as OAuth Callback Handler
     participant TS as Token Storage
     participant OP as OAuth Proxy
-    participant SA as Slack API
+    participant SA as Slack / Jira / etc API
 
     C->>E: Request /oauth/callback/:service with code
     E->>OCH: Handle callback
